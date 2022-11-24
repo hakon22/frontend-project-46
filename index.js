@@ -16,10 +16,8 @@ export const genDiff = (path1, path2) => {
       return { key, value: obj2[key], status: 'new' };
     } if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] === obj2[key]) {
       return { key, value: obj1[key], status: 'same' };
-    } if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] !== obj2[key]) {
-      return { key, value: { oldValue: obj1[key], newValue: obj2[key] }, status: 'changed' };
     }
-    return null;
+    return { key, value: { oldValue: obj1[key], newValue: obj2[key] }, status: 'changed' };
   });
   const result = diff.reduce((acc, item) => {
     if (item.status === 'removed') {
