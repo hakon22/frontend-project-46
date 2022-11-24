@@ -1,12 +1,12 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-console */
 /* eslint-disable no-prototype-builtins */
 import _ from 'lodash';
-import path from 'path';
-import fs from 'fs';
+import getFormat from './data/parsers.js';
 
-export const genDiff = (path1, path2) => {
-  const obj1 = JSON.parse(fs.readFileSync(path.resolve(path1), 'utf8'));
-  const obj2 = JSON.parse(fs.readFileSync(path.resolve(path2), 'utf8'));
+export const genDiff = (path1, path2, format = undefined) => {
+  const obj1 = getFormat(path1, format);
+  const obj2 = getFormat(path2, format);
   const mergeFiles = { ...obj1, ...obj2 };
   const uniqueKeys = _.sortBy(Object.keys(mergeFiles));
   const diff = uniqueKeys.map((key) => {
