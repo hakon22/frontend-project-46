@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { Command } from 'commander';
 // eslint-disable-next-line import/extensions
-import { genDiff } from '../index.js';
+import genDiff from '../index.js';
 
 const program = new Command();
 
@@ -14,7 +14,7 @@ const format = (value) => {
   if (value === 'json') {
     return arr.push('json');
   }
-  return undefined;
+  return arr.push('stylish');
 };
 
 program
