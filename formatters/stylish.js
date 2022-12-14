@@ -5,22 +5,25 @@ const stylish = (obj, obj3, i = logic(obj, obj3).i) => {
   const { diff } = logic(obj, obj3, i);
   const result = diff.reduce((acc, item) => {
     if (item.object === 'yes') {
-      acc.push(`  ${rep(i)}${item.key}: ${stylish(obj[item.key], obj3[item.key], i + 2)}`);
+      const Key = [`  ${rep(i)}${item.key}: ${stylish(obj[item.key], obj3[item.key], i + 2)}`];
+      return [...acc, ...Key];
     }
     if (item.status === 'removed') {
-      acc.push(`${rep(i)}- ${item.key}: ${item.value}`);
+      const Key = [`${rep(i)}- ${item.key}: ${item.value}`];
+      return [...acc, ...Key];
     } if (item.status === 'new') {
-      acc.push(`${rep(i)}+ ${item.key}: ${item.value}`);
+      const Key = [`${rep(i)}+ ${item.key}: ${item.value}`];
+      return [...acc, ...Key];
     } if (item.status === 'same') {
-      acc.push(`  ${rep(i)}${item.key}: ${item.value}`);
+      const Key = [`  ${rep(i)}${item.key}: ${item.value}`];
+      return [...acc, ...Key];
     } if (item.status === 'changed' && item.object !== 'yes') {
-      acc.push(`${rep(i)}- ${item.key}: ${item.value.oldValue}`);
-      acc.push(`${rep(i)}+ ${item.key}: ${item.value.newValue}`);
+      const Key = [`${rep(i)}- ${item.key}: ${item.value.oldValue}\n${rep(i)}+ ${item.key}: ${item.value.newValue}`];
+      return [...acc, ...Key];
     }
     return acc;
   }, ['{']);
-  result.push(`${rep(i - 1)}}`);
-  return result.join('\n');
+  return result.concat([`${rep(i - 1)}}`]).join('\n');
 };
 
 export default stylish;
