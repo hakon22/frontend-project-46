@@ -6,15 +6,18 @@ import genDiff from '../index.js';
 
 const program = new Command();
 
-const arr = [];
+const arr = {};
 const format = (value) => {
   if (value === 'plain') {
-    return arr.push(value);
+    arr.value = value;
   }
   if (value === 'json') {
-    return arr.push(value);
+    arr.value = value;
   }
-  return arr.push('stylish');
+  if (value === 'stylish') {
+    arr.value = value;
+  }
+  return arr.value;
 };
 
 program
@@ -23,7 +26,7 @@ program
   .version('1')
   .option('-f, --format <type>', 'output format', format)
   .arguments('<filepath1> <filepath2>')
-  .action((file1, file2) => console.log(genDiff(file1, file2, arr.pop())));
+  .action((file1, file2) => console.log(genDiff(file1, file2, arr.value)));
 
 program.parse();
 program.opts();
