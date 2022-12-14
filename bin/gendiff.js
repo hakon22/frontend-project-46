@@ -8,11 +8,8 @@ const program = new Command();
 
 const arr = [];
 const format = (value) => {
-  if (value === 'yaml' || value === 'yml') {
+  if (value === 'plain') {
     return arr.push(value);
-  }
-  if (value === 'json') {
-    return arr.push('json');
   }
   return arr.push('stylish');
 };

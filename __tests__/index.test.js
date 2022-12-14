@@ -18,6 +18,7 @@ const resultJson = `${path}/__fixtures__/result-json.txt`;
 const resultYml = `${path}/__fixtures__/result-yml.txt`;
 const resultJsonRec = `${path}/__fixtures__/result-json-rec.txt`;
 const resultYmlRec = `${path}/__fixtures__/result-yml-rec.txt`;
+const resultPlain = `${path}/__fixtures__/result-plain.txt`;
 const temp = `${path}/__fixtures__/test.txt`;
 const readFile = (filepath) => readFileSync(filepath, 'utf8');
 
@@ -25,10 +26,11 @@ test.each([
   [file1, file2, readFile(resultJson)],
   [file3, file4, '{\n}'],
   [file5, file6, readFile(resultYml)],
-  [file7, file8, readFile(resultJsonRec)],
+  [file7, file8, readFile(resultJsonRec), 'stylish'],
   [file9, file10, readFile(resultYmlRec)],
-])('genDiff test(%#)', (a, b, expected) => {
-  writeFileSync(temp, diff(a, b));
+  [file9, file10, readFile(resultPlain), 'plain'],
+])('genDiff test(%#)', (a, b, expected, format = 'stylish') => {
+  writeFileSync(temp, diff(a, b, format));
   expect(readFile(temp)).toBe(expected);
   unlinkSync(temp);
 });
