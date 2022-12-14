@@ -11,14 +11,13 @@ const getValue = (v, t) => {
   const result = array.reduce((acc, val) => {
     const [key, value] = val;
     if (!_.isObject(value)) {
-      acc.push(`${rep(t)}${key}: ${value}`);
-      return acc;
+      const Key = [`${rep(t)}${key}: ${value}`];
+      return [...acc, ...Key];
     }
-    acc.push(`${rep(t)}${key}: ${getValue(value, t + 2)}`);
-    return acc;
+    const Key = [`${rep(t)}${key}: ${getValue(value, t + 2)}`];
+    return [...acc, ...Key];
   }, ['{']);
-  result.push(`${rep(t - 2)}}`);
-  return result.join('\n');
+  return result.concat([`${rep(t - 2)}}`]).join('\n');
 };
 const iter = (obj1, obj2, i) => {
   const mergeFiles = { ...obj1, ...obj2 };

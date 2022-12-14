@@ -6,27 +6,13 @@ import genDiff from '../index.js';
 
 const program = new Command();
 
-const arr = {};
-const format = (value) => {
-  if (value === 'plain') {
-    arr.value = value;
-  }
-  if (value === 'json') {
-    arr.value = value;
-  }
-  if (value === 'stylish') {
-    arr.value = value;
-  }
-  return arr.value;
-};
-
 program
   .name('gendiff')
   .description('Compares two configuration files and shows a difference.')
   .version('1')
-  .option('-f, --format <type>', 'output format', format)
+  .option('-f, --format <type>', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
-  .action((file1, file2) => console.log(genDiff(file1, file2, arr.value)));
+  .action((file1, file2) => console.log(genDiff(file1, file2, program.opts().format)));
 
 program.parse();
 program.opts();
