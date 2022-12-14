@@ -11,6 +11,9 @@ const format = (value) => {
   if (value === 'plain') {
     return arr.push(value);
   }
+  if (value === 'json') {
+    return arr.push(value);
+  }
   return arr.push('stylish');
 };
 
